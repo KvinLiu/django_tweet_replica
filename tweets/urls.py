@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
 
 from django.urls import path
-from . import views
+from .views import home_view, tweet_detail_view, tweet_list_view
 
 app_name = "tweets"
 
 urlpatterns = [
-    path("", views.home_view, name="homepage"),
-    path("tweets/<int:tweet_id>", views.tweet_detail_view, name="detail"),
+    path("", home_view, name="homepage"),
+    path("tweets", tweet_list_view, name="tweets"),
+    path("tweets/<int:tweet_id>", tweet_detail_view, name="detail"),
 ]
