@@ -6,7 +6,15 @@
 
 {% block content %}
   <h1>Welcome to Tweetme 2</h1>
+
+  <div id="tweets">
+    replace me
+  </div>
+
   <script type="text/javascript">
+   const tweetsElements = document.getElementById("tweets")
+   tweetsElements.innerHTML("Loading...")
+
    const xhr = new XMLHttpRequest()
    const method = "GET"
    const url = "/tweets"
@@ -16,7 +24,6 @@
    xhr.onload = function(){
      const serverResponse = xhr.response
      var listItems = serverResponse.response
-     console.log(listItems)
    }
    xhr.send()
   </script>
