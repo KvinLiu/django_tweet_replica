@@ -5,4 +5,7 @@ from . import views
 
 app_name = "tweets"
 
-urlpatterns = [path("", views.home_view, name="homepage")]
+urlpatterns = [
+    path("", views.home_view, name="homepage"),
+    path("tweets/<int:tweet_id>", views.tweet_detail_view, name="detail"),
+]
