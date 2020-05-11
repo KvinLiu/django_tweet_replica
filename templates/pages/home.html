@@ -15,6 +15,10 @@
    const tweetsElements = document.getElementById("tweets")
    // tweetsElements.innerHTML("Loading...")
 
+   function formatTweet(tweet) {
+     return `<div class="mb-4 tweet" id="tweet-${tweet.id}"><p>${tweet.content}</p></div>`
+   }
+
    const xhr = new XMLHttpRequest()
    const method = "GET"
    const url = "/tweets"
@@ -26,9 +30,9 @@
      const listItems = serverResponse.response
      let finalTweets = ""
      for (var i=0; i<listItems.length; i++) {
-       var currentItem = `<div class="mb-4"><h1>${listItems[i].id}</h1><p>${listItems[i].content}</p></div>`
-       console.log(currentItem)
-       finalTweets += currentItem
+       var tweetObj = listItems[i]
+       var currentTweet = formatTweet(tweetObj)
+       finalTweets += currentTweet
      }
      tweetsElements.innerHTML = finalTweets
    }
