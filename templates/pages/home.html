@@ -13,7 +13,7 @@
 
   <script type="text/javascript">
    const tweetsElements = document.getElementById("tweets")
-   tweetsElements.innerHTML("Loading...")
+   // tweetsElements.innerHTML("Loading...")
 
    const xhr = new XMLHttpRequest()
    const method = "GET"
@@ -23,7 +23,14 @@
    xhr.open(method, url)
    xhr.onload = function(){
      const serverResponse = xhr.response
-     var listItems = serverResponse.response
+     const listItems = serverResponse.response
+     let finalTweets = ""
+     for (var i=0; i<listItems.length; i++) {
+       var currentItem = `<div class="mb-4"><h1>${listItems[i].id}</h1><p>${listItems[i].content}</p></div>`
+       console.log(currentItem)
+       finalTweets += currentItem
+     }
+     tweetsElements.innerHTML = finalTweets
    }
    xhr.send()
   </script>
