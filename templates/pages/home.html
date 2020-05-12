@@ -5,9 +5,13 @@
 {% endblock %}
 
 {% block content %}
-  <h1>Welcome to Tweetme 2</h1>
+  <div class="row">
+    <div class="col text-center mb-4">
+      <h1>Welcome to Tweetme 2</h1>
+    </div>
+  </div>
 
-  <div id="tweets">
+  <div class="row" id="tweets">
     replace me
   </div>
 
@@ -24,7 +28,7 @@
    }
 
    function formatTweet(tweet) {
-     return `<div class="mb-4 tweet" id="tweet-${tweet.id}"><p>${tweet.content}</p><div class="btn-group">
+     return `<div class="col-12 col-md-10 mx-auto border rounded py-3 mb-4 tweet" id="tweet-${tweet.id}"><p>${tweet.content}</p><div class="btn-group">
 ${likeButton(tweet)}</div></div>`
    }
 
