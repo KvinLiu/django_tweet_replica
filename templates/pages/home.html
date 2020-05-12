@@ -11,6 +11,18 @@
     </div>
   </div>
 
+  <div class="row mb-3">
+    <div class="col-10 col-md-4 mx-auto">
+      <form method="POST" action="/create-tweet" class="form">
+        {% csrf_token %}
+        <input type="hidden" name="next" value="/" />
+        <textarea class="form-control" cols="30" name="content" rows="5" placeholder="Your Tweet...">
+        </textarea>
+        <button class="btn btn-primary" type="submit">Tweet</button>
+      </form>
+    </div>
+  </div>
+
   <div class="row" id="tweets">
     replace me
   </div>
