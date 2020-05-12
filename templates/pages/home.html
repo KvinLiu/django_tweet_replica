@@ -16,8 +16,7 @@
       <form method="POST" action="/create-tweet" class="form">
         {% csrf_token %}
         <input type="hidden" name="next" value="/" />
-        <textarea class="form-control" cols="30" name="content" rows="5" placeholder="Your Tweet...">
-        </textarea>
+        <textarea class="form-control" name="content" placeholder="Your Tweet..."></textarea>
         <button class="btn btn-primary" type="submit">Tweet</button>
       </form>
     </div>
