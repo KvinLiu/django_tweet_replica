@@ -15,6 +15,7 @@
     <div class="col-10 col-md-4 mx-auto">
       <form id="tweet-create-form" method="POST" action="/create-tweet" class="form">
         {% csrf_token %}
+        <div class="d-none alert alert-danger" id="tweet-create-form-error"></div>
         <input type="hidden" name="next" value="/" />
         <textarea class="form-control" name="content" placeholder="Your Tweet..." required="required"></textarea>
         <button class="btn btn-primary" type="submit">Tweet</button>
@@ -30,6 +31,17 @@
    const tweetCreateForm = document.getElementById("tweet-create-form")
    const tweetsContainerEl = document.getElementById("tweets")
    // tweetsElements.innerHTML("Loading...")
+   function handleTweetFormError(msg, display) {
+     let myErrorDiv = document.getElementById("tweet-create-form-error")
+     if (display === true) {
+       // show error
+       myErrorDiv.setAttribute("class", "d-block alert alert-danger")
+       myErrorDiv.innerHTML = msg
+     } else {
+       // hide error
+       myErrorDiv.setAttribute("class", "d-none alert alert-danger")
+     }
+   }
 
    function handleTweetCreateFormDidSubmit(event) {
      event.preventDefault()
@@ -44,6 +56,7 @@
      xhr.responseType = "json"
      xhr.onload = function() {
        if (xhr.status === 201) {
+         handleTweetFormError("", false)
          const serverResponse = xhr.response
          const newTweetEl = formatTweet(serverResponse)
          const ogHtml = tweetsContainerEl.innerHTML
@@ -52,8 +65,22 @@
        } else if (xhr.status === 400) {
          const errorJson = xhr.response
          console.log(errorJson)
-       } else if (xhr.status === 500)
+         const contentError = errorJson.content
+         let contentErrorMsg;
+         if (contentError) {
+           contentErrorMsg = contentError[0]
+           if (contentErrorMsg) {
+             handleTweetFormError(contentErrorMsg, true)
+           } else {
+             alert("An error occured. Please try again.")
+           }
+         } else {
+           alert("An error occured. Please try again.")
+         }
+         console.log(contentErrorMsg)
+       } else if (xhr.status === 500) {
          alert("There is a server error, Please try again.")
+       }
      }
      xhr.onerror = function() {
        alert("An error occurred, Please try again later.")
