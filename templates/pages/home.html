@@ -28,7 +28,7 @@
 
   <script type="text/javascript">
    const tweetCreateForm = document.getElementById("tweet-create-form")
-   const tweetsEl = document.getElementById("tweets")
+   const tweetsContainerEl = document.getElementById("tweets")
    // tweetsElements.innerHTML("Loading...")
 
    function handleTweetCreateFormDidSubmit(event) {
@@ -41,11 +41,11 @@
      xhr.open(method, url)
      xhr.setRequestHeader("HTTP_X_REQUESTED_WITH", "XMLHttpRequest")
      xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest")
+     xhr.responseType = "json"
      xhr.onload = function() {
        const serverResponse = xhr.response
        console.log(xhr.status, serverResponse)
-       const tweetsEl = document.getElementById("tweets")
-       loadTweets(tweetsEl)
+       tweetsContainerEl.prepend(formatTweet(serverResponse))
      }
      xhr.send(myFormData)
    }
@@ -87,7 +87,7 @@ ${likeButton(tweet)}</div></div>`
      xhr.send()
    }
 
-   loadTweets(tweetsEl)
+   loadTweets(tweetsContainerEl)
   </script>
 
 {% endblock %}
