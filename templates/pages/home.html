@@ -31,6 +31,9 @@
    const tweetCreateForm = document.getElementById("tweet-create-form")
    const tweetsContainerEl = document.getElementById("tweets")
    // tweetsElements.innerHTML("Loading...")
+
+   tweetCreateForm.addEventListener("submit", handleTweetCreateFormDidSubmit)
+
    function handleTweetFormError(msg, display) {
      let myErrorDiv = document.getElementById("tweet-create-form-error")
      if (display === true) {
@@ -87,9 +90,6 @@
      }
      xhr.send(myFormData)
    }
-
-   tweetCreateForm.addEventListener("submit", handleTweetCreateFormDidSubmit)
-
 
    function handleDidLike(tweet_id, currentCount) {
      console.log(tweet_id, currentCount)
