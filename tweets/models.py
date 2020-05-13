@@ -22,3 +22,6 @@ class Tweet(models.Model):
 
     def serialize(self):
         return {"id": self.id, "content": self.content, "likes": random.randint(0, 299)}
+
+    def __str__(self):
+        return self.content
