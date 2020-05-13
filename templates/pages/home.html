@@ -81,8 +81,10 @@
            alert("An error occured. Please try again.")
          }
          console.log(contentErrorMsg)
+       } else if (xhr.status === 401) {
+         alert("You must login")
+         window.location.href = "/login"
        } else if (xhr.status === 500) {
-         console.log(xhr.response)
          alert("There is a server error, Please try again.")
        }
      }
