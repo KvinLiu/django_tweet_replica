@@ -18,11 +18,19 @@ def home_view(request, *args, **kwargs):
 
 
 def tweet_create_view(request, *args, **kwargs):
+    user = request.user
+    if not request.user.is_authenticated:
+        user = None
+        if request.is_ajax():
+            return JsonResponse({}, status=401)
+        return redirect(settings.LOGIN_URL)
+
     # print("ajax ", request.is_ajax())
     form = TweetForm(request.POST or None)
     next_url = request.POST.get("next") or None
     if form.is_valid():
         obj = form.save(commit=False)
+        obj.user = user
         obj.save()
         if request.is_ajax():
             return JsonResponse(obj.serialize(), status=201)  # 201 == created items

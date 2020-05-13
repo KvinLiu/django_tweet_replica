@@ -82,6 +82,7 @@
          }
          console.log(contentErrorMsg)
        } else if (xhr.status === 500) {
+         console.log(xhr.response)
          alert("There is a server error, Please try again.")
        }
      }
