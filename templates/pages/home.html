@@ -116,7 +116,7 @@ ${likeButton(tweet)}</div></div>`
      xhr.open(method, url)
      xhr.onload = function(){
        const serverResponse = xhr.response
-       const listItems = serverResponse.response
+       const listItems = serverResponse
        let finalTweets = ""
        for (var i=0; i<listItems.length; i++) {
          var tweetObj = listItems[i]
