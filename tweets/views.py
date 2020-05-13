@@ -5,6 +5,7 @@ from django.shortcuts import render, redirect
 
 from .forms import TweetForm
 from .models import Tweet
+from .serializers import TweetSerializer
 
 import random
 
@@ -18,6 +19,18 @@ def home_view(request, *args, **kwargs):
 
 
 def tweet_create_view(request, *args, **kwargs):
+    """
+    REST API Create View -> DRF
+    """
+    data = request.POST or None
+    serializer = TweetSerializer(data=data)
+    if serializer.is_valid():
+        obj = serializer.save(user=request.user)
+        return JsonResponse(serializer.data, status=201)
+    return JsonResponse({}, status=400)
+
+
+def tweet_create_view_pure_django(request, *args, **kwargs):
     user = request.user
     if not request.user.is_authenticated:
         user = None
