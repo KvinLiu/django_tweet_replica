@@ -9,7 +9,7 @@ from rest_framework.response import Response
 
 from .forms import TweetForm
 from .models import Tweet
-from .serializers import TweetSerializer, TweetActionSerializer
+from .serializers import TweetSerializer, TweetActionSerializer, TweetCreateSerializer
 
 import random
 
@@ -28,8 +28,7 @@ def tweet_create_view(request, *args, **kwargs):
     """
     REST API Create View -> DRF
     """
-    data = request.POST
-    serializer = TweetSerializer(data=data)
+    serializer = TweetCreateSerializer(data=request.POST)
     if serializer.is_valid(raise_exception=True):
         serializer.save(user=request.user)
         return Response(serializer.data, status=201)

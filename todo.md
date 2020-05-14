@@ -8,6 +8,8 @@
        - Image -> Media Storage Server
      - Delete
      - Retweeting
+       - Read Only Serializer
+       - Create Only Serializer
      - Liking or Unliking
 
 2. Users
@@ -29,4 +31,4 @@ Long Term todos
 
 - Notifications
 - DM
-  - Explore finding hashtags
+- Explore finding hashtags
