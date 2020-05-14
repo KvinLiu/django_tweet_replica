@@ -9,7 +9,7 @@
     <div class="col text-center mb-4">
       <h1>Welcome to Tweetme 2</h1>
     </div>
-  </div>
+      </div>
 
   <div class="row mb-3">
     <div class="col-10 col-md-4 mx-auto">
@@ -21,11 +21,11 @@
         <button class="btn btn-primary" type="submit">Tweet</button>
       </form>
     </div>
-  </div>
+      </div>
 
   <div class="row" id="tweets">
     replace me
-  </div>
+      </div>
 
   <script type="text/javascript">
    const tweetCreateForm = document.getElementById("tweet-create-form")
@@ -99,6 +99,21 @@
 
    function handleDidLike(tweet_id, currentCount) {
      console.log(tweet_id, currentCount)
+     const xhr = new XMLHttpRequest()
+     const url = "/api/tweets/action"
+     const method = "POST"
+     const data = JSON.stringify({
+       id: tweet_id,
+       action: "like"
+     })
+     xhr.open(method, url)
+     xhr.setRequestHeader("Content-Type", "application/json")
+     xhr.setRequestHeader("HTTP_X_REQUESTED_WITH", "XMLHttpRequest")
+     xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest")
+     xhr.onload = function() {
+       console.log(xhr.status, xhr.response)
+     }
+     xhr.send(data)
    }
 
    function likeButton(tweet){
