@@ -8,7 +8,7 @@
        - Image -> Media Storage Server
      - Delete
      - Retweeting
-     - Liking
+     - Liking or Unliking
 
 2. Users
 
