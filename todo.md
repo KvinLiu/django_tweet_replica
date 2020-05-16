@@ -32,3 +32,9 @@ Long Term todos
 - Notifications
 - DM
 - Explore finding hashtags
+
+4 nodejs
+
+- npm - node package manager
+- nvm - node version manager
+- npx - node package executor
