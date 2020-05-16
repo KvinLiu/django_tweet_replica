@@ -5,8 +5,15 @@ import "./App.css";
 function App() {
   const [tweets, setTweets] = useState([]);
   useEffect(() => {
-    const tweetItems = [{ content: 123 }, { content: "Hello World" }];
-    setTweets(tweetItems);
+    const myCallback = (response, status) => {
+      console.log(response, status);
+      if (status === 200) {
+        setTweets(response);
+      } else {
+        alert("There was an error");
+      }
+    };
+    loadTweets(myCallback);
   }, []);
 
   return (
@@ -34,4 +41,20 @@ function App() {
   );
 }
 
+function loadTweets(callback) {
+  const xhr = new XMLHttpRequest();
+  const method = "GET";
+  const url = "localhost:3000/api/tweets";
+  const responseType = "json";
+  xhr.responseType = responseType;
+  xhr.open(method, url);
+  xhr.onload = function () {
+    callback(xhr.reponse, xhr.status);
+  };
+  xhr.onerror = function (e) {
+    console.log(e);
+    callback({ message: "The request was on error" }, 400);
+  };
+  xhr.send();
+}
 export default App;
