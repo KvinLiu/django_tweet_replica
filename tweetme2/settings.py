@@ -25,7 +25,7 @@ SECRET_KEY = "beg8o$)uu2zt-e!t$ombvdbdnrpshwl0=u!^lz^0iyy6r)_b_&"
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["127.0.0.1", "localhost"]
+ALLOWED_HOSTS = ["127.0.0.1", "localhost", "192.168.31.13"]
 
 LOGIN_URL = "/login"
 MAX_TWEET_LENGTH = 240
