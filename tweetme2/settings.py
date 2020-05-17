@@ -122,8 +122,12 @@ USE_TZ = True
 
 STATIC_URL = "/static/"
 
-CORS_ORIGIN_ALLOW_ALL = True # any website has allowed access to my api
-CORS_URLS_REGEX = r'^/api/.*$'
+STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
+
+STATIC_ROOT = os.path.join(BASE_DIR, "static-root")
+
+CORS_ORIGIN_ALLOW_ALL = True  # any website has allowed access to my api
+CORS_URLS_REGEX = r"^/api/.*$"
 
 DEFAULT_RENDERER_CLASSES = ["rest_framework.renderers.JSONRenderer"]
 if DEBUG:

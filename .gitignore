@@ -6,6 +6,8 @@ tweets/migrations
 __pycache__
 db.sqlite3
 media
+static
+static-root
 
 # Backup files #
 *.bak
