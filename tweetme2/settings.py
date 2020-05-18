@@ -25,7 +25,10 @@ SECRET_KEY = "beg8o$)uu2zt-e!t$ombvdbdnrpshwl0=u!^lz^0iyy6r)_b_&"
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["127.0.0.1", "localhost", "192.168.31.13"]
+ALLOWED_HOSTS = [
+    "127.0.0.1",
+    "localhost",
+]
 
 LOGIN_URL = "/login"
 MAX_TWEET_LENGTH = 240
@@ -130,12 +133,14 @@ CORS_ORIGIN_ALLOW_ALL = True  # any website has allowed access to my api
 CORS_URLS_REGEX = r"^/api/.*$"
 
 DEFAULT_RENDERER_CLASSES = ["rest_framework.renderers.JSONRenderer"]
+DEFAULT_AUTHENTICATION_CLASSES = ["rest_framework.authentication.SessionAuthentication"]
+
 if DEBUG:
     DEFAULT_RENDERER_CLASSES += ["rest_framework.renderers.BrowsableAPIRenderer"]
+    DEFAULT_AUTHENTICATION_CLASSES += ["tweetme2.rest_api.dev.DevAuthentication"]
+
 
 REST_FRAMEWORK = {
-    "DEFAULT_AUTHENTICATION_CLASSES": [
-        "rest_framework.authentication.SessionAuthentication"
-    ],
+    "DEFAULT_AUTHENTICATION_CLASSES": DEFAULT_AUTHENTICATION_CLASSES,
     "DEFAULT_RENDERER_CLASSES": DEFAULT_RENDERER_CLASSES,
 }
