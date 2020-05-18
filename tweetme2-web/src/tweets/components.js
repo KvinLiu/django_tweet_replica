@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { loadTweets, createTweet } from "../lookup";
+import { apiTweetList, apiTweetCreate } from "./lookup";
 
 export function ActionBtn(props) {
   const { tweet, action } = props;
@@ -49,7 +49,7 @@ export function TweetsComponent(props) {
     event.preventDefault();
     const newVal = textAreaRef.current.value;
     // backend api request
-    createTweet(newVal, handleBackendUpdate);
+    apiTweetCreate(newVal, handleBackendUpdate);
     textAreaRef.current.value = "";
   };
   return (
@@ -110,7 +110,7 @@ export function TweetsList(props) {
   }, [props.newTweets, tweets, tweetsInit]);
 
   useEffect(() => {
-    const myCallback = (response, status) => {
+    const handleTweetListLookup = (response, status) => {
       if (tweetsDidSet === false) {
         if (status === 200) {
           setTweetsInit(response);
@@ -120,7 +120,7 @@ export function TweetsList(props) {
         }
       }
     };
-    loadTweets(myCallback);
+    apiTweetList(handleTweetListLookup);
   }, [tweetsInit, tweetsDidSet, setTweetsDidSet]);
   return (
     <div>
