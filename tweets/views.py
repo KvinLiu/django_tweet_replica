@@ -28,7 +28,7 @@ def tweet_create_view(request, *args, **kwargs):
     """
     REST API Create View -> DRF
     """
-    serializer = TweetCreateSerializer(data=request.POST)
+    serializer = TweetCreateSerializer(data=request.data)
     if serializer.is_valid(raise_exception=True):
         serializer.save(user=request.user)
         return Response(serializer.data, status=201)
