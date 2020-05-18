@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { apiTweetList, apiTweetCreate } from "./lookup";
+import { apiTweetList, apiTweetCreate, apiTweetAction } from "./lookup";
 
 export function ActionBtn(props) {
   const { tweet, action } = props;
   const [likes, setLikes] = useState(tweet.likes ? tweet.likes : 0);
-  const [userLike, setUserLike] = useState(tweet.likes === true ? true : false);
+  // const [userLike, setUserLike] = useState(tweet.likes === true ? true : false);
   const className = props.className
     ? props.className
     : "btn btn-primary btn-small";
@@ -12,17 +12,25 @@ export function ActionBtn(props) {
   const display =
     action.type === "like" ? `${likes} ${actionDisplay}` : actionDisplay;
 
+  const handleActionBackendEvent = (response, status) => {
+    if (status === 200) {
+      setLikes(response.likes);
+      // setUserLike(true)
+    }
+    // if (action.type === "like") {
+    //   if (userLike === true) {
+    //     setUserLike(false);
+    //     setLikes(likes - 1);
+    //   } else {
+    //     setUserLike(true);
+    //     setLikes(likes + 1);
+    //   }
+    // }
+  };
+
   const handleClick = (event) => {
     event.preventDefault();
-    if (action.type === "like") {
-      if (userLike === true) {
-        setUserLike(false);
-        setLikes(likes - 1);
-      } else {
-        setUserLike(true);
-        setLikes(likes + 1);
-      }
-    }
+    apiTweetAction(tweet.id, action.type, handleActionBackendEvent);
   };
   return (
     <button className={className} onClick={handleClick}>
