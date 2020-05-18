@@ -84,14 +84,14 @@ export function ParentTweet(props) {
     <div className="row">
       <div className="col-11 mx-auto p-3 border rounded">
         <p className="mb-0 text-muted small">Retweet</p>
-        <Tweet tweet={tweet.parent} className={" "} />
+        <Tweet hideActions tweet={tweet.parent} className={" "} />
       </div>
     </div>
   ) : null;
 }
 
 export function Tweet(props) {
-  const { tweet } = props;
+  const { tweet, didRetweet, hideActions } = props;
   const [actionTweet, setActionTweet] = useState(
     props.tweet ? props.tweet : null
   );
@@ -103,6 +103,9 @@ export function Tweet(props) {
       setActionTweet(newActionTweet);
     } else if (status === 201) {
       // let the tweet list know
+      if (didRetweet) {
+        didRetweet(newActionTweet);
+      }
     }
   };
 
@@ -114,7 +117,7 @@ export function Tweet(props) {
         </p>
         <ParentTweet tweet={tweet} />
       </div>
-      {actionTweet && (
+      {actionTweet && hideActions !== true && (
         <div className="btn btn-group">
           <ActionBtn
             tweet={actionTweet}
@@ -162,17 +165,24 @@ export function TweetsList(props) {
     };
     apiTweetList(handleTweetListLookup);
   }, [tweetsInit, tweetsDidSet, setTweetsDidSet]);
-  return (
-    <div>
-      {tweets.map((item, index) => {
-        return (
-          <Tweet
-            tweet={item}
-            className="my-5 py-5 border bg-white text-dark"
-            key={`${index}-{item.id}`}
-          />
-        );
-      })}
-    </div>
-  );
+
+  const handleDidRetweet = (newTweet) => {
+    const updateTweetsInit = [...tweetsInit];
+    updateTweetsInit.unshift(newTweet);
+    setTweetsInit(updateTweetsInit);
+    const updateFinalTweet = [...tweets];
+    updateFinalTweet.unshift(newTweet);
+    setTweets(updateFinalTweet);
+  };
+
+  return tweets.map((item, index) => {
+    return (
+      <Tweet
+        tweet={item}
+        didRetweet={handleDidRetweet}
+        className="my-5 py-5 border bg-white text-dark"
+        key={`${index}-{item.id}`}
+      />
+    );
+  });
 }
