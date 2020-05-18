@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from "react";
-import { loadTweets } from "../lookup";
+import { loadTweets, createTweet } from "../lookup";
 
 export function ActionBtn(props) {
   const { tweet, action } = props;
   const [likes, setLikes] = useState(tweet.likes ? tweet.likes : 0);
   const [userLike, setUserLike] = useState(tweet.likes === true ? true : false);
   const className = props.className
-        ? props.className
-        : "btn btn-primary btn-small";
+    ? props.className
+    : "btn btn-primary btn-small";
   const actionDisplay = action.display ? action.display : "Action";
   const display =
-        action.type === "like" ? `${likes} ${actionDisplay}` : actionDisplay;
+    action.type === "like" ? `${likes} ${actionDisplay}` : actionDisplay;
 
   const handleClick = (event) => {
     event.preventDefault();
@@ -33,18 +33,22 @@ export function ActionBtn(props) {
 
 export function TweetsComponent(props) {
   const textAreaRef = React.createRef();
-  const [newTweets, setNewTweets] = useState([])
+  const [newTweets, setNewTweets] = useState([]);
   const handleSubmit = (event) => {
     event.preventDefault();
     const newVal = textAreaRef.current.value;
-    console.log(newVal);
-    let tempNewTweets = [...newTweets]
-    tempNewTweets.unshift({
-      content: newVal,
-      likes: 0,
-      id: 12313
-    })
-    setNewTweets(tempNewTweets)
+    // console.log(newVal);
+
+    let tempNewTweets = [...newTweets];
+    createTweet(newVal, (response, status) => {
+      if (status === 201) {
+        tempNewTweets.unshift(response);
+      } else {
+        console.log(response);
+        alert("An error occured, please try again");
+      }
+    });
+    setNewTweets(tempNewTweets);
     textAreaRef.current.value = "";
   };
   return (
@@ -62,7 +66,7 @@ export function TweetsComponent(props) {
           </button>
         </form>
       </div>
-      <TweetsList newTweets={newTweets}/>
+      <TweetsList newTweets={newTweets} />
     </div>
   );
 }
@@ -70,8 +74,8 @@ export function TweetsComponent(props) {
 export function Tweet(props) {
   const { tweet } = props;
   const className = props.className
-        ? props.className
-        : "col-10 col-md-6 mx-auto";
+    ? props.className
+    : "col-10 col-md-6 mx-auto";
   return (
     <div className={className}>
       <p>
@@ -98,18 +102,18 @@ export function TweetsList(props) {
   const [tweetsDidSet, setTweetsDidSet] = useState(false);
 
   useEffect(() => {
-    let final = [...props.newTweets].concat(tweetsInit)
+    let final = [...props.newTweets].concat(tweetsInit);
     if (final.length !== tweets.length) {
-      setTweets(final)
+      setTweets(final);
     }
-  }, [props.newTweets, tweets, tweetsInit])
+  }, [props.newTweets, tweets, tweetsInit]);
 
   useEffect(() => {
     const myCallback = (response, status) => {
       if (tweetsDidSet === false) {
         if (status === 200) {
           setTweetsInit(response);
-          setTweetsDidSet(true)
+          setTweetsDidSet(true);
         } else {
           alert("There was an error");
         }
