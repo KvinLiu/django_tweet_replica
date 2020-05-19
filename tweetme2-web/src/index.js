@@ -15,10 +15,10 @@ import * as serviceWorker from "./serviceWorker";
 //   );
 // }
 const e = React.createElement;
-// const tweetsEl = document.getElementById("tweetme-2");
-// if (tweetsEl) {
-//   ReactDOM.render(e(TweetsComponent, tweetsEl.dataset), tweetsEl);
-// }
+const tweetsEl = document.getElementById("tweetme-2");
+if (tweetsEl) {
+  ReactDOM.render(e(TweetsComponent, tweetsEl.dataset), tweetsEl);
+}
 
 const tweetDetailEls = document.querySelectorAll(".tweetme-2-detail");
 tweetDetailEls.forEach((container) => {

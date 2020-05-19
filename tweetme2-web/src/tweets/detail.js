@@ -18,6 +18,11 @@ export function Tweet(props) {
   const [actionTweet, setActionTweet] = useState(
     props.tweet ? props.tweet : null
   );
+  let idRegex = /(?<tweetid>\d+)/;
+  const path = window.location.pathname;
+  const match = path.match(idRegex);
+  const urlTweetId = match ? match.groups.tweetid : -1;
+  const isDeatil = `${tweet.id}` === `${urlTweetId}`;
   const className = props.className
     ? props.className
     : "col-10 col-md-6 mx-auto";
@@ -31,7 +36,10 @@ export function Tweet(props) {
       }
     }
   };
-
+  const handleLink = (event) => {
+    event.preventDefault();
+    window.location.href = `/${tweet.id}`;
+  };
   return (
     <div className={className}>
       <div>
@@ -40,25 +48,36 @@ export function Tweet(props) {
         </p>
         <ParentTweet tweet={tweet} />
       </div>
-      {actionTweet && hideActions !== true && (
-        <div className="btn btn-group">
-          <ActionBtn
-            tweet={actionTweet}
-            action={{ type: "like", display: "Likes" }}
-            didPerformAction={handlePerformAction}
-          />
-          <ActionBtn
-            tweet={actionTweet}
-            action={{ type: "unlike", display: "Unlike" }}
-            didPerformAction={handlePerformAction}
-          />
-          <ActionBtn
-            tweet={actionTweet}
-            action={{ type: "retweet", display: "Retweet" }}
-            didPerformAction={handlePerformAction}
-          />
-        </div>
-      )}
+
+      <div className="btn btn-group">
+        {actionTweet && hideActions !== true && (
+          <React.Fragment>
+            <ActionBtn
+              tweet={actionTweet}
+              action={{ type: "like", display: "Likes" }}
+              didPerformAction={handlePerformAction}
+            />
+            <ActionBtn
+              tweet={actionTweet}
+              action={{ type: "unlike", display: "Unlike" }}
+              didPerformAction={handlePerformAction}
+            />
+            <ActionBtn
+              tweet={actionTweet}
+              action={{ type: "retweet", display: "Retweet" }}
+              didPerformAction={handlePerformAction}
+            />
+          </React.Fragment>
+        )}
+        {isDeatil === true ? null : (
+          <button
+            className="btn btn-outline-primary btn-sm"
+            onClick={handleLink}
+          >
+            View
+          </button>
+        )}
+      </div>
     </div>
   );
 }
