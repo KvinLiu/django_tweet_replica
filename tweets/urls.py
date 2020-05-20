@@ -1,24 +1,17 @@
 #!/usr/bin/env python3
 
 from django.urls import path
+
 from .views import (
-    tweet_detail_view,
-    tweet_list_view,
-    tweet_create_view,
-    tweet_delete_view,
-    tweet_action_view,
+    tweets_list_view,
+    tweets_profie_view,
+    tweets_deatail_view,
 )
 
-"""
-CLIENT
-Base ENDPOINT /api/tweets/
-"""
 app_name = "tweets"
 
 urlpatterns = [
-    path("", tweet_list_view, name="tweets"),
-    path("action/", tweet_action_view, name="action"),
-    path("create/", tweet_create_view, name="create"),
-    path("<int:tweet_id>/", tweet_detail_view, name="detail"),
-    path("<int:tweet_id>/delete/", tweet_delete_view, name="delete"),
+    path("", tweets_list_view, name="list"),
+    path("<int:tweet_id>", tweets_deatail_view, name="detail"),
+    path("profile/<str:username>", tweets_profie_view, name="profile"),
 ]
