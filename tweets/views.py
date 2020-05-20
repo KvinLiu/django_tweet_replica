@@ -22,6 +22,20 @@ def home_view(request, *args, **kwargs):
     return render(request, "pages/home.html", context={}, status=200)
 
 
+def local_tweets_list_view(request):
+    return render(request, "tweets/list.html")
+
+
+def local_tweets_deatail_view(request, tweet_id):
+    return render(request, "tweets/detail.html", context={"tweet_id": tweet_id})
+
+
+def local_tweets_profie_view(request, username):
+    return render(
+        request, "tweets/profile.html", context={"profile_username": username}
+    )
+
+
 @api_view(["POST"])  # http method the client == POST
 @permission_classes([IsAuthenticated])
 def tweet_create_view(request, *args, **kwargs):

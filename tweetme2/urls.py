@@ -20,10 +20,16 @@ from django.views.generic import TemplateView
 from django.conf import settings
 from django.conf.urls.static import static
 
-from tweets.views import home_view
+from tweets.views import (
+    local_tweets_list_view,
+    local_tweets_profie_view,
+    local_tweets_deatail_view,
+)
 
 urlpatterns = [
-    path("", home_view),
+    path("", local_tweets_list_view),
+    path("<int:tweet_id>", local_tweets_deatail_view, name="local_detail"),
+    path("profile/<str:username>", local_tweets_profie_view, name="local_profile"),
     path("react/", TemplateView.as_view(template_name="react_via_dj.html")),
     path("api/tweets/", include("tweets.urls")),
     path("admin/", admin.site.urls),
