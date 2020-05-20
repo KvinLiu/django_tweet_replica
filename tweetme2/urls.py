@@ -20,9 +20,13 @@ from django.views.generic import TemplateView
 from django.conf import settings
 from django.conf.urls.static import static
 
+from accounts.views import login_view, logout_view, register_view
 
 urlpatterns = [
     path("", include("tweets.urls")),
+    path("login/", login_view, name="login"),
+    path("logout/", logout_view, name="logout"),
+    path("register/", register_view, name="register"),
     path("react/", TemplateView.as_view(template_name="react_via_dj.html")),
     path("api/tweets/", include("tweets.api.urls")),
     path("admin/", admin.site.urls),
