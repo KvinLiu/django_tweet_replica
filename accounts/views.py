@@ -31,6 +31,7 @@ def register_view(request):
     if form.is_valid():
         user = form.save(commit=True)
         user.set_password(form.cleaned_data.get("password1"))
+        return redirect("/")
         # print(form.cleaned_data)
         # username = form.cleaned_data.get("username")
         # create my user???
