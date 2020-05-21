@@ -19,7 +19,7 @@ class Tweet(models.Model):
     # id = models.AutoField(primary_key=True)
     parent = models.ForeignKey("self", null=True, on_delete=models.SET_NULL)
     user = models.ForeignKey(
-        User, on_delete=models.CASCADE
+        User, on_delete=models.CASCADE, related_name="tweets"
     )  # many users can have many tweets
     content = models.TextField(blank=True, null=True)
     image = models.FileField(upload_to="images/", blank=True, null=True)
@@ -41,5 +41,5 @@ class Tweet(models.Model):
         """
         return {"id": self.id, "content": self.content, "likes": random.randint(0, 299)}
 
-    def __str__(self):
-        return self.content
+    # def __str__(self):
+    #     return self.content
