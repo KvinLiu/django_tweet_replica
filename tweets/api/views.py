@@ -33,12 +33,7 @@ def tweet_create_view(request, *args, **kwargs):
 @permission_classes([IsAuthenticated])
 def tweet_feed_view(request, *args, **kwargs):
     user = request.user
-    profiles = user.following.all()
-    followed_users_ids = []
-    if profiles.exists():
-        followed_users_ids = [x.user.id for x in profiles]
-    followed_users_ids.append(user.id)
-    qs = Tweet.objects.filter(user__id__in=followed_users_ids).order_by("-timestamp")
+    qs = Tweet.objects.feed(user)
     serializer = TweetSerializer(qs, many=True)
     return Response(serializer.data, status=200)
 
@@ -48,7 +43,7 @@ def tweet_list_view(request, *args, **kwargs):
     qs = Tweet.objects.all()
     username = request.GET.get("username")  # ?username=justin
     if username != None:
-        qs = qs.filter(user__username__iexact=username)
+        qs = qs.by_username(username)
     serializer = TweetSerializer(qs, many=True)
     return Response(serializer.data, status=200)
 
