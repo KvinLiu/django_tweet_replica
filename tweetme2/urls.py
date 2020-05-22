@@ -31,6 +31,7 @@ urlpatterns = [
     path("api/tweets/", include("tweets.api.urls"), name="api"),
     re_path(r"profiles?/", include("profiles.urls"), name="profiles"),
     path("admin/", admin.site.urls),
+    re_path(r"api/profiles?/", include("profiles.api.urls"), name="followers"),
 ]
 
 if settings.DEBUG:

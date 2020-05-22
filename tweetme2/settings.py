@@ -137,8 +137,8 @@ CORS_URLS_REGEX = r"^/api/.*$"
 DEFAULT_RENDERER_CLASSES = ["rest_framework.renderers.JSONRenderer"]
 DEFAULT_AUTHENTICATION_CLASSES = ["rest_framework.authentication.SessionAuthentication"]
 
-# if DEBUG:
-#     DEFAULT_RENDERER_CLASSES += ["rest_framework.renderers.BrowsableAPIRenderer"]
+if DEBUG:
+    DEFAULT_RENDERER_CLASSES += ["rest_framework.renderers.BrowsableAPIRenderer"]
 #     DEFAULT_AUTHENTICATION_CLASSES += ["tweetme2.rest_api.dev.DevAuthentication"]
 
 
