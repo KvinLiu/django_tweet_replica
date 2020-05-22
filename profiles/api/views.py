@@ -22,11 +22,15 @@ def user_profile_detail_view(request, username):
     return Response({}, status=200)
 
 
-@api_view(["GET", "POST"])
+@api_view(["POST"])
 @permission_classes([IsAuthenticated])
 def user_follow_view(request, username):
     me = request.user
     other_user_qs = User.objects.filter(username=username)
+    if me.username == username:
+        my_followers = me.profile.followers.all()
+        return Response({"count": my_followers.count()}, status=200)
+
     # profile = Profile.objects.filter(user__username=username).first()
     if not other_user_qs.exists():
         return Response({}, status=404)
