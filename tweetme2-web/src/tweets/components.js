@@ -3,6 +3,7 @@ import { TweetsList } from "./list";
 import { TweetCreate } from "./create";
 import { Tweet } from "./detail";
 import { apiTweetDetail } from "./lookup";
+import { FeedList } from "./feed";
 
 export function TweetsComponent(props) {
   // console.log(props);
@@ -44,5 +45,24 @@ export function TweetDetailComponent(props) {
   }, [tweetId, didLookup, setDidLookup]);
   return tweet === null ? null : (
     <Tweet tweet={tweet} className={props.className} />
+  );
+}
+export function FeedComponent(props) {
+  // console.log(props);
+  const { username } = props;
+  const [newTweets, setNewTweets] = useState([]);
+  const canTweet = props.canTweet === "false" ? false : true;
+  const handleNewTweet = (newTweet) => {
+    let tempNewTweets = [...newTweets];
+    tempNewTweets.unshift(newTweet);
+    setNewTweets(tempNewTweets);
+  };
+  return (
+    <div className={props.className}>
+      {canTweet === true && (
+        <TweetCreate didTweet={handleNewTweet} className="col-12 mb-3" />
+      )}
+      <FeedList newTweets={newTweets} username={username} />
+    </div>
   );
 }
