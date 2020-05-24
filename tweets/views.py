@@ -1,6 +1,10 @@
 from django.shortcuts import render, redirect
 
 
+def home_view(request):
+    return render(request, "pages/feed.html")
+
+
 def tweets_list_view(request):
     return render(request, "tweets/list.html")
 
