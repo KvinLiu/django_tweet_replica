@@ -40,6 +40,7 @@ export function backendLookup(method, endpoint, callback, data) {
     callback(xhr.response, xhr.status);
   };
   xhr.onerror = function (e) {
+    console.log(data);
     console.log(e);
     callback({ message: "The request was on error" }, 400);
   };

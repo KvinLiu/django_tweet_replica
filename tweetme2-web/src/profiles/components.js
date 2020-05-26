@@ -38,6 +38,6 @@ export function UserPicture(props) {
   return hideLink === true ? (
     userIdSpan
   ) : (
-    <UserLink username={user.username}></UserLink>
+    <UserLink username={user.username}>{userIdSpan}</UserLink>
   );
 }

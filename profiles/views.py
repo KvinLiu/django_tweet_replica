@@ -21,6 +21,7 @@ def profile_update_view(request):
         user.email_address = email_address
         user.save()
         profile_obj.save()
+        return redirect("/")
     context = {"form": form, "btn_label": "Save", "title": "Update Profile"}
     return render(request, "profiles/form.html", context)
 
