@@ -33,8 +33,14 @@ Long Term todos
 - DM
 - Explore finding hashtags
 
-4 nodejs
+4. nodejs
 
 - npm - node package manager
 - nvm - node version manager
 - npx - node package executor
+
+5. Next Steps:
+   - Large File Uploads for Images ~ Dive into AWS
+   - Notifications
+   - Direct Messages / Private Inboxes ~ Chat x Channels
+   - Explore -> parse & filter for hashtags
